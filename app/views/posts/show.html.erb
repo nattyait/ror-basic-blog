@@ -3,7 +3,13 @@
 <div class="container">
   <h1><%= @post.title %></h1>
   <p><%= @post.content %></p>
+  <p><strong>Published:</strong> <%= @post.published? ? 'Yes' : 'No' %></p>
   <%= link_to 'Edit', edit_post_path(@post), class: 'btn btn-primary' %>
-  <%= link_to 'Destroy', @post, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
+  <% if @post.published? %>
+    <%= link_to 'Unpublish', unpublish_post_path(@post), data: { turbo_method: :post }, class: 'btn btn-warning' %>
+  <% else %>
+    <%= link_to 'Publish', publish_post_path(@post), data: { turbo_method: :post }, class: 'btn btn-success' %>
+  <% end %>
+  <%= link_to 'Destroy', @post, data: { turbo_method: :delete, confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
   <%= link_to 'Back', posts_path, class: 'btn btn-secondary' %>
 </div>
