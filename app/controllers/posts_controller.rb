@@ -1,7 +1,7 @@
 class PostsController < ApplicationController
   before_action :set_post, only: [:show, :edit, :update, :destroy, :publish, :unpublish]
   def index
-    @posts = Post.published
+    @posts = Post.all.order(created_at: :desc)
   end
 
   def show
@@ -17,7 +17,7 @@ class PostsController < ApplicationController
     if @post.save
       redirect_to @post, notice: 'Post was successfully created.'
     else
-      render :new
+      render :new, status: :unprocessable_entity
     end
   end
 
@@ -29,7 +29,7 @@ class PostsController < ApplicationController
     if @post.update(post_params)
       redirect_to @post, notice: 'Post was successfully updated.'
     else
-      render :edit
+      render :edit, status: :unprocessable_entity
     end
   end
 

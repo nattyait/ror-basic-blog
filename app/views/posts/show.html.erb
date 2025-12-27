@@ -1,2 +1,9 @@
 <h1>Posts#show</h1>
-<p>Find me in app/views/posts/show.html.erb</p>
+
+<div class="container">
+  <h1><%= @post.title %></h1>
+  <p><%= @post.content %></p>
+  <%= link_to 'Edit', edit_post_path(@post), class: 'btn btn-primary' %>
+  <%= link_to 'Destroy', @post, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
+  <%= link_to 'Back', posts_path, class: 'btn btn-secondary' %>
+</div>

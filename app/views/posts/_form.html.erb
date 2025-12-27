@@ -1,0 +1,48 @@
+<%= form_with model: @post do |f| %>
+  <% if @post.errors.any? %>
+    <div class="alert alert-danger">
+      <h4><%= pluralize(@post.errors.count, "error") %> prohibited this post from being saved:</h4>
+      <ul class="mb-0">
+        <% @post.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= f.label :title %>
+    <%= f.text_field :title, class: "form-control #{'is-invalid' if @post.errors[:title].any?}", placeholder: 'Enter title' %>
+    <% if @post.errors[:title].any? %>
+      <div class="invalid-feedback">
+        <% @post.errors[:title].each do |error| %>
+          <div><%= error %></div>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+  <div class="form-group">
+    <%= f.label :content %>
+    <%= f.text_area :content, class: "form-control #{'is-invalid' if @post.errors[:content].any?}", rows: 10, placeholder: 'Enter content' %>
+    <% if @post.errors[:content].any? %>
+      <div class="invalid-feedback">
+        <% @post.errors[:content].each do |error| %>
+          <div><%= error %></div>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+  <div class="form-group">
+    <%= f.label :published %>
+    <%= f.check_box :published, class: "form-check-input #{'is-invalid' if @post.errors[:published].any?}" %>
+    <% if @post.errors[:published].any? %>
+      <div class="invalid-feedback">
+        <% @post.errors[:published].each do |error| %>
+          <div><%= error %></div>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+  <%= f.submit class: 'btn btn-primary', value: 'Save Post' %>
+  <%= link_to 'Cancel', posts_path, class: 'btn btn-secondary' %>
+<% end %>
